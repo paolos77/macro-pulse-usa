@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Macro Pulse USA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=JetBrains+Mono:wght@400;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: banda di sintesi in alto, poi griglia di 6 schede uguali (3 / 2 / 1 colonne) */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --ink:#14202b; --muted:#5b6b78; --line:#d9e0e6;
+  --accent:#1f4e79;
+  --ok:#1d7a4a; --ok-bg:#e3f3ea; --warn:#9a6a00; --warn-bg:#fbf0d6; --bad:#b3261e; --bad-bg:#fbe4e2;
+  --na:#6b7680; --na-bg:#eceff2;
+  --f-display:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --f-data:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f161c; --surface:#16202a; --ink:#e6edf3; --muted:#93a3b1; --line:#26333f; --accent:#7fb3e6;
+  --ok:#5fd394; --ok-bg:#12301f; --warn:#f0c255; --warn-bg:#33280c; --bad:#ff8a80; --bad-bg:#3a1714;
+  --na:#9aa6b1; --na-bg:#202b35; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161c; --surface:#16202a; --ink:#e6edf3; --muted:#93a3b1; --line:#26333f; --accent:#7fb3e6;
+  --ok:#5fd394; --ok-bg:#12301f; --warn:#f0c255; --warn-bg:#33280c; --bad:#ff8a80; --bad-bg:#3a1714;
+  --na:#9aa6b1; --na-bg:#202b35; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 40px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-0.01em;margin:0;text-wrap:balance}
+.eyebrow{font-family:var(--f-data);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.meta{font-family:var(--f-data);font-size:.8rem;color:var(--muted);text-align:right}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px}
+.regime{font-family:var(--f-display);font-weight:800;font-size:1.7rem;margin:4px 0 2px}
+.regime-why{color:var(--muted);margin:0}
+.tally{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.tally span{font-family:var(--f-data);font-size:.85rem;padding:4px 10px;border-radius:999px;font-variant-numeric:tabular-nums}
+.changes h2,.caveats h2{font-family:var(--f-display);font-size:.95rem;margin:0 0 8px}
+.changes ul,.caveats ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.s-green{color:var(--ok);background:var(--ok-bg)} .s-yellow{color:var(--warn);background:var(--warn-bg)}
+.s-red{color:var(--bad);background:var(--bad-bg)} .s-na{color:var(--na);background:var(--na-bg)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:10px;
+  align-content:start;border-top-width:4px}
+.card.b-green{border-top-color:var(--ok)} .card.b-yellow{border-top-color:var(--warn)}
+.card.b-red{border-top-color:var(--bad)} .card.b-na{border-top-color:var(--na)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.card h3{font-family:var(--f-display);font-size:1.05rem;margin:0;text-wrap:balance}
+.metric{color:var(--muted);font-size:.85rem}
+.pill{font-family:var(--f-data);font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.value{font-family:var(--f-data);font-size:2rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.trend{font-family:var(--f-data);font-size:.82rem;color:var(--muted)}
+.spark{width:100%;height:48px;display:block}
+.spark-line{stroke:var(--accent);stroke-width:2;vector-effect:non-scaling-stroke}
+.spark-area{fill:var(--accent);opacity:.12}
+.spark-dot{fill:var(--accent)}
+.spark-range{display:flex;justify-content:space-between;font-family:var(--f-data);font-size:.7rem;color:var(--muted)}
+.spark-empty{font-size:.8rem;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:14px;text-align:center}
+dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 12px;margin:0;font-size:.85rem}
+dt{color:var(--muted)} dd{margin:0;font-family:var(--f-data);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stale{font-family:var(--f-data);font-size:.75rem;color:var(--bad);background:var(--bad-bg);padding:4px 8px;border-radius:6px}
+.fresh{font-family:var(--f-data);font-size:.75rem;color:var(--muted)}
+.rule{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+.note{font-size:.82rem;background:var(--na-bg);border-radius:6px;padding:8px 10px}
+a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.caveats{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;font-size:.9rem}
+footer{font-size:.8rem;color:var(--muted)}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.grid,.summary{grid-template-columns:minmax(0,1fr)}.meta{text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div><div class="eyebrow">6 numeri · lettura settimanale · USA</div><h1>Macro Pulse USA</h1></div>
+  <div class="meta">Aggiornato il 2026-10-14<br>Snapshot verificato a mano il 14/10/2026 · gli aggiornamenti automatici partono dal repository</div>
+</header>
+<section class="summary">
+  <div>
+    <div class="eyebrow">Regime (regola meccanica)</div>
+    <div class="regime">Espansione</div>
+    <p class="regime-why">Almeno 5 indicatori su 6 in verde.</p>
+    <div class="tally"><span class="s-green">Verde 5</span><span class="s-yellow">Giallo 1</span><span class="s-red">Rosso 0</span></div>
+  </div>
+  <div class="changes"><h2>Cosa è cambiato dall'ultimo aggiornamento</h2><ul><li>Primo aggiornamento: nessun confronto disponibile con la settimana precedente.</li></ul></div>
+</section>
+<section class="grid">
+<article class="card b-green">
+  <div class="card-head">
+    <div><h3>Retail Sales</h3><div class="metric">Crescita annua reale</div></div>
+    <span class="pill s-green">Verde</span>
+  </div>
+  <div class="value">+2,5%</div>
+  <div class="trend">↑ in salita rispetto al dato precedente</div>
+  <svg class="spark" viewBox="0 0 220 48" preserveAspectRatio="none" role="img" aria-label="Andamento da 2026-03-01 a 2026-08-01"><polygon points="4.0,48 4.0,44.0 46.4,42.4 88.8,7.6 131.2,4.0 173.6,32.3 216.0,15.7 216.0,48" class="spark-area"/><polyline points="4.0,44.0 46.4,42.4 88.8,7.6 131.2,4.0 173.6,32.3 216.0,15.7" class="spark-line" fill="none"/><circle cx="216.0" cy="15.7" r="3.2" class="spark-dot"/></svg><div class="spark-range"><span>2026-03</span><span>2026-08</span></div>
+  <dl><dt>Frequenza</dt><dd>mensile</dd><dt>Nominale</dt><dd>+6,0%</dd><dt>CPI a/a</dt><dd>+3,4%</dd></dl>
+  <div class="fresh">Ultimo dato: 2026-08-01 · 74 giorni fa</div><div class="note">Prossimo dato (settembre) atteso a metà ottobre.</div>
+  <div class="rule">Verde ≥ +2% reale · Giallo 0/+2% · Rosso &lt; 0%<br>Fonte: <a href="https://fred.stlouisfed.org/series/RSAFS" target="_blank" rel="noopener">Census via FRED (RSAFS), deflazionato con CPI (CPIAUCSL)</a></div>
+</article>
+<article class="card b-green">
+  <div class="card-head">
+    <div><h3>ISM Services New Orders</h3><div class="metric">Indice di diffusione</div></div>
+    <span class="pill s-green">Verde</span>
+  </div>
+  <div class="value">59,8</div>
+  <div class="trend">↓ in discesa rispetto al dato precedente</div>
+  <svg class="spark" viewBox="0 0 220 48" preserveAspectRatio="none" role="img" aria-label="Andamento da 2025-10-01 a 2026-09-01"><polygon points="4.0,48 4.0,27.5 23.3,44.0 42.5,26.0 61.8,43.0 81.1,15.5 100.4,5.5 119.6,41.0 138.9,22.0 158.2,33.0 177.5,22.5 196.7,4.0 216.0,9.5 216.0,48" class="spark-area"/><polyline points="4.0,27.5 23.3,44.0 42.5,26.0 61.8,43.0 81.1,15.5 100.4,5.5 119.6,41.0 138.9,22.0 158.2,33.0 177.5,22.5 196.7,4.0 216.0,9.5" class="spark-line" fill="none"/><circle cx="216.0" cy="9.5" r="3.2" class="spark-dot"/></svg><div class="spark-range"><span>2025-10</span><span>2026-09</span></div>
+  <dl><dt>Frequenza</dt><dd>mensile</dd><dt>Mese prima</dt><dd>60,9</dd><dt>Media 3 mesi</dt><dd>59,3</dd></dl>
+  <div class="fresh">Ultimo dato: 2026-09-01 · 43 giorni fa</div>
+  <div class="rule">Verde ≥ 55 · Giallo 50/55 · Rosso &lt; 50 (contrazione)<br>Fonte: <a href="https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/" target="_blank" rel="noopener">ISM Report On Business (inserimento manuale, licenza ISM)</a></div>
+</article>
+<article class="card b-green">
+  <div class="card-head">
+    <div><h3>Bank Loan Growth</h3><div class="metric">Crescita annualizzata 3 mesi</div></div>
+    <span class="pill s-green">Verde</span>
+  </div>
+  <div class="value">+6,0%</div>
+  <div class="trend">↓ in discesa rispetto al dato precedente</div>
+  <svg class="spark" viewBox="0 0 220 48" preserveAspectRatio="none" role="img" aria-label="Andamento da 2025-04-01 a 2026-07-01"><polygon points="4.0,48 4.0,44.0 46.4,41.0 88.8,36.6 131.2,4.0 173.6,7.0 216.0,38.1 216.0,48" class="spark-area"/><polyline points="4.0,44.0 46.4,41.0 88.8,36.6 131.2,4.0 173.6,7.0 216.0,38.1" class="spark-line" fill="none"/><circle cx="216.0" cy="38.1" r="3.2" class="spark-dot"/></svg><div class="spark-range"><span>2025-04</span><span>2026-07</span></div>
+  <dl><dt>Frequenza</dt><dd>settimanale</dd><dt>Settembre (1 mese)</dt><dd>+6,8%</dd><dt>Livello 30/09</dt><dd>$14.128 mld</dd></dl>
+  <div class="fresh">Ultimo dato: 2026-09-30 · 14 giorni fa</div><div class="note">Valore = 3° trimestre 2026 annualizzato (H.8 ufficiale). In rallentamento dall&#x27;8,1% del 2° trimestre.</div>
+  <div class="rule">Verde ≥ 5% · Giallo 2/5% · Rosso &lt; 2%<br>Fonte: <a href="https://www.federalreserve.gov/releases/h8/current/" target="_blank" rel="noopener">Fed H.8 via FRED (TOTLL, prestiti e leasing totali)</a></div>
+</article>
+<article class="card b-green">
+  <div class="card-head">
+    <div><h3>Delinquencies</h3><div class="metric">Variazione annua del tasso (punti %)</div></div>
+    <span class="pill s-green">Verde</span>
+  </div>
+  <div class="value">-0,07 pp</div>
+  <div class="trend">↓ in discesa rispetto al dato precedente</div>
+  <svg class="spark" viewBox="0 0 220 48" preserveAspectRatio="none" role="img" aria-label="Andamento da 2025-07-01 a 2026-04-01"><polygon points="4.0,48 4.0,4.0 74.7,4.0 145.3,30.7 216.0,44.0 216.0,48" class="spark-area"/><polyline points="4.0,4.0 74.7,4.0 145.3,30.7 216.0,44.0" class="spark-line" fill="none"/><circle cx="216.0" cy="44.0" r="3.2" class="spark-dot"/></svg><div class="spark-range"><span>2025-07</span><span>2026-04</span></div>
+  <dl><dt>Frequenza</dt><dd>trimestrale</dd><dt>Livello Q2 2026</dt><dd>1,42%</dd><dt>Carte di credito</dt><dd>2,85%</dd></dl>
+  <div class="fresh">Ultimo dato: 2026-04-01 · 196 giorni fa</div><div class="note">Dato del 2° trimestre 2026. Il 3° trimestre esce a fine novembre.</div>
+  <div class="rule">Verde ≤ −0,05 pp · Giallo −0,05/+0,10 · Rosso &gt; +0,10 pp<br>Fonte: <a href="https://www.federalreserve.gov/releases/chargeoff/delallsa.htm" target="_blank" rel="noopener">Fed, tasso di insolvenza su tutti i prestiti, via FRED (DRALACBS)</a></div>
+</article>
+<article class="card b-green">
+  <div class="card-head">
+    <div><h3>Ristoranti (proxy OpenTable)</h3><div class="metric">Crescita annua reale vendite</div></div>
+    <span class="pill s-green">Verde</span>
+  </div>
+  <div class="value">+2,3%</div>
+  <div class="trend">→ stabile rispetto al dato precedente</div>
+  <div class="spark-empty">Storico non ancora disponibile</div>
+  <dl><dt>Frequenza</dt><dd>mensile</dd><dt>Nominale</dt><dd>+5,8%</dd></dl>
+  <div class="fresh">Ultimo dato: 2026-08-01 · 74 giorni fa</div><div class="note">OpenTable non offre un accesso automatico ai dati: uso le vendite di ristoranti e bar (Census).</div>
+  <div class="rule">Verde ≥ +1,5% reale · Giallo 0/+1,5% · Rosso &lt; 0%<br>Fonte: <a href="https://fred.stlouisfed.org/series/RSFSDP" target="_blank" rel="noopener">Census, ristoranti e bar, via FRED (RSFSDP), deflazionato con CPI</a></div>
+</article>
+<article class="card b-yellow">
+  <div class="card-head">
+    <div><h3>CEO Confidence</h3><div class="metric">Indice Conference Board</div></div>
+    <span class="pill s-yellow">Giallo</span>
+  </div>
+  <div class="value">52,0</div>
+  <div class="trend">↑ in salita rispetto al dato precedente</div>
+  <svg class="spark" viewBox="0 0 220 48" preserveAspectRatio="none" role="img" aria-label="Andamento da 2026-01-01 a 2026-07-01"><polygon points="4.0,48 4.0,4.0 110.0,44.0 216.0,27.3 216.0,48" class="spark-area"/><polyline points="4.0,4.0 110.0,44.0 216.0,27.3" class="spark-line" fill="none"/><circle cx="216.0" cy="27.3" r="3.2" class="spark-dot"/></svg><div class="spark-range"><span>2026-01</span><span>2026-07</span></div>
+  <dl><dt>Frequenza</dt><dd>trimestrale</dd><dt>Capex in aumento</dt><dd>31% dei CEO (era 37%)</dd></dl>
+  <div class="fresh">Ultimo dato: 2026-07-01 · 105 giorni fa</div><div class="note">Dato del 3° trimestre 2026. Il 4° trimestre esce a inizio novembre.</div>
+  <div class="rule">Verde ≥ 60 · Giallo 50/60 · Rosso &lt; 50 (pessimismo prevalente)<br>Fonte: <a href="https://www.conference-board.org/topics/CEO-confidence" target="_blank" rel="noopener">The Conference Board (inserimento manuale)</a></div>
+</article></section>
+<section class="caveats"><h2>Cosa il semaforo non vede</h2><ul><li>Inflazione: CPI al 3,7% a settembre, in risalita. Le crescite nominali sembrano più forti di quanto siano.</li><li>ISM Services: nuovi ordini forti, ma i nuovi ordini export sono passati in contrazione (46,9 da 56,3).</li><li>Prestiti: crescita ancora sopra il 5%, ma il 3° trimestre rallenta rispetto al 2°.</li><li>CEO: meno CEO pianificano più investimenti (31% contro 37%). La fiducia è sotto il picco del 1° trimestre.</li><li>Questi 6 numeri descrivono l&#x27;economia, non le valutazioni di borsa: un&#x27;economia forte non garantisce rialzi degli indici.</li></ul></section>
+<footer>Le soglie sono scelte di metodo, non verità di mercato: sono spiegate in NOTE.md. Nessun valore mancante viene stimato.</footer>
+</div>
+</body>
+</html>

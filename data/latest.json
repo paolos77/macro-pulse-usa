@@ -1,0 +1,233 @@
+{
+ "run_date": "2026-10-14",
+ "indicators": {
+  "retail": {
+   "value": 2.51,
+   "prev": 1.55,
+   "data_date": "2026-08-01",
+   "age_days": 74,
+   "stale": false,
+   "signal": "green",
+   "trend": "up",
+   "spark": [
+    [
+     "2026-03-01",
+     0.87
+    ],
+    [
+     "2026-04-01",
+     0.96
+    ],
+    [
+     "2026-05-01",
+     2.98
+    ],
+    [
+     "2026-06-01",
+     3.19
+    ],
+    [
+     "2026-07-01",
+     1.55
+    ],
+    [
+     "2026-08-01",
+     2.51
+    ]
+   ],
+   "extra": {
+    "Nominale": "+6,0%",
+    "CPI a/a": "+3,4%"
+   },
+   "note": "Prossimo dato (settembre) atteso a metà ottobre."
+  },
+  "ism_no": {
+   "value": 59.8,
+   "prev": 60.9,
+   "data_date": "2026-09-01",
+   "age_days": 43,
+   "stale": false,
+   "signal": "green",
+   "trend": "down",
+   "spark": [
+    [
+     "2025-10-01",
+     56.2
+    ],
+    [
+     "2025-11-01",
+     52.9
+    ],
+    [
+     "2025-12-01",
+     56.5
+    ],
+    [
+     "2026-01-01",
+     53.1
+    ],
+    [
+     "2026-02-01",
+     58.6
+    ],
+    [
+     "2026-03-01",
+     60.6
+    ],
+    [
+     "2026-04-01",
+     53.5
+    ],
+    [
+     "2026-05-01",
+     57.3
+    ],
+    [
+     "2026-06-01",
+     55.1
+    ],
+    [
+     "2026-07-01",
+     57.2
+    ],
+    [
+     "2026-08-01",
+     60.9
+    ],
+    [
+     "2026-09-01",
+     59.8
+    ]
+   ],
+   "extra": {
+    "Mese prima": "60,9",
+    "Media 3 mesi": "59,3"
+   },
+   "note": null
+  },
+  "loans": {
+   "value": 6.0,
+   "prev": 8.1,
+   "data_date": "2026-09-30",
+   "age_days": 14,
+   "stale": false,
+   "signal": "green",
+   "trend": "down",
+   "spark": [
+    [
+     "2025-04-01",
+     5.6
+    ],
+    [
+     "2025-07-01",
+     5.8
+    ],
+    [
+     "2025-10-01",
+     6.1
+    ],
+    [
+     "2026-01-01",
+     8.3
+    ],
+    [
+     "2026-04-01",
+     8.1
+    ],
+    [
+     "2026-07-01",
+     6.0
+    ]
+   ],
+   "extra": {
+    "Settembre (1 mese)": "+6,8%",
+    "Livello 30/09": "$14.128 mld"
+   },
+   "note": "Valore = 3° trimestre 2026 annualizzato (H.8 ufficiale). In rallentamento dall'8,1% del 2° trimestre."
+  },
+  "delinq": {
+   "value": -0.07,
+   "prev": -0.06,
+   "data_date": "2026-04-01",
+   "age_days": 196,
+   "stale": false,
+   "signal": "green",
+   "trend": "down",
+   "spark": [
+    [
+     "2025-07-01",
+     -0.04
+    ],
+    [
+     "2025-10-01",
+     -0.04
+    ],
+    [
+     "2026-01-01",
+     -0.06
+    ],
+    [
+     "2026-04-01",
+     -0.07
+    ]
+   ],
+   "extra": {
+    "Livello Q2 2026": "1,42%",
+    "Carte di credito": "2,85%"
+   },
+   "note": "Dato del 2° trimestre 2026. Il 3° trimestre esce a fine novembre."
+  },
+  "dining": {
+   "value": 2.32,
+   "prev": null,
+   "data_date": "2026-08-01",
+   "age_days": 74,
+   "stale": false,
+   "signal": "green",
+   "trend": "flat",
+   "spark": [
+    [
+     "2026-08-01",
+     2.32
+    ]
+   ],
+   "extra": {
+    "Nominale": "+5,8%"
+   },
+   "note": "OpenTable non offre un accesso automatico ai dati: uso le vendite di ristoranti e bar (Census)."
+  },
+  "ceo": {
+   "value": 52,
+   "prev": 47,
+   "data_date": "2026-07-01",
+   "age_days": 105,
+   "stale": false,
+   "signal": "yellow",
+   "trend": "up",
+   "spark": [
+    [
+     "2026-01-01",
+     59
+    ],
+    [
+     "2026-04-01",
+     47
+    ],
+    [
+     "2026-07-01",
+     52
+    ]
+   ],
+   "extra": {
+    "Capex in aumento": "31% dei CEO (era 37%)"
+   },
+   "note": "Dato del 3° trimestre 2026. Il 4° trimestre esce a inizio novembre."
+  }
+ },
+ "counts": {
+  "green": 5,
+  "yellow": 1,
+  "red": 0,
+  "na": 0
+ }
+}
