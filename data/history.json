@@ -2,16 +2,16 @@
  {
   "run_date": "2026-10-14",
   "counts": {
-   "green": 5,
-   "yellow": 1,
+   "green": 4,
+   "yellow": 2,
    "red": 0,
    "na": 0
   },
   "indicators": {
    "retail": {
-    "value": 2.51,
+    "value": 1.59,
     "data_date": "2026-08-01",
-    "signal": "green"
+    "signal": "yellow"
    },
    "ism_no": {
     "value": 59.8,
@@ -19,7 +19,7 @@
     "signal": "green"
    },
    "loans": {
-    "value": 6.0,
+    "value": 7.65,
     "data_date": "2026-09-30",
     "signal": "green"
    },
@@ -29,12 +29,12 @@
     "signal": "green"
    },
    "dining": {
-    "value": 2.32,
+    "value": 1.6,
     "data_date": "2026-08-01",
     "signal": "green"
    },
    "ceo": {
-    "value": 52,
+    "value": 52.0,
     "data_date": "2026-07-01",
     "signal": "yellow"
    }
